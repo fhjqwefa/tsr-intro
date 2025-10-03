@@ -27,10 +27,6 @@
             border-left-color: #FA8E42;
             background-color: #FFF8F3;
         }
-        .role.active {
-            background-color: #FFF8F3;
-            border-color: #FA8E42;
-        }
     </style>
 </head>
 <body class="text-stone-800">
@@ -77,8 +73,8 @@
 
                 <div class="card py-12 px-10 rounded-lg">
                     <div class="bg-stone-200 p-1 rounded-full flex flex-col sm:flex-row max-w-md mx-auto mb-6">
-                        <button id="btn-planned" class="tab-button py-2 px-4 w-full sm:w/1-2 text-base md:text-lg transition-colors duration-300 rounded-t-full sm:rounded-full" onclick="showTSRType('planned')">Planned TSRs</button>
-                        <button id="btn-emergency" class="tab-button py-2 px-4 w-full sm:w/1-2 text-base md:text-lg transition-colors duration-300 rounded-b-full sm:rounded-full" onclick="showTSRType('emergency')">Emergency TSRs (ESRs)</button>
+                        <button id="btn-planned" class="tab-button py-2 px-4 w-full sm:w-1/2 text-sm sm:text-base transition-colors duration-300 rounded-t-full sm:rounded-full" onclick="showTSRType('planned')">Planned TSRs</button>
+                        <button id="btn-emergency" class="tab-button py-2 px-4 w-full sm:w-1/2 text-sm sm:text-base transition-colors duration-300 rounded-b-full sm:rounded-full" onclick="showTSRType('emergency')">Emergency TSRs (ESRs)</button>
                     </div>
                     <div id="content-planned" class="tsr-type-content">
                         <h3 class="text-lg md:text-xl font-semibold mb-2 flex items-center"><span class="text-2xl mr-3">🗓️</span>Planned Temporary Speed Restrictions</h3>
@@ -127,12 +123,14 @@
                 <div class="card py-12 px-10 rounded-lg">
                     <h3 class="text-lg md:text-xl font-semibold text-center mb-4">TSR Management Workflow & Key Roles</h3>
                     <p class="text-left text-stone-600 mb-6 max-w-3xl mx-auto leading-relaxed">Click a role to read its description and see its key responsibilities highlighted in the process flow below. This demonstrates the collaborative effort required from imposition to removal.</p>
-                    <div id="roles-container" class="flex flex-wrap justify-center gap-2 mb-6">
+                    
+                    <div id="roles-container" class="bg-stone-100 rounded-t-lg p-4 flex flex-wrap justify-center gap-2 border-t border-x border-stone-200">
                         <!-- Roles will be dynamically inserted here -->
                     </div>
-                    <div id="role-detail-display" class="p-4 bg-stone-50 border border-stone-200 rounded-lg min-h-[90px] flex items-center justify-center transition-all duration-300">
+                    <div id="role-detail-display" class="p-6 bg-white border-b border-x border-stone-200 rounded-b-lg min-h-[90px] flex items-center justify-center transition-all duration-300">
                         <p class="text-stone-500">Click a role above to see its detailed responsibilities.</p>
                     </div>
+
                     <div class="mt-8 space-y-4">
                         <div class="text-center font-bold text-lg">TSR Lifecycle Start</div>
                         <div class="flex items-center justify-center"><div class="w-0.5 h-8 bg-stone-300"></div></div>
@@ -238,7 +236,7 @@
              { icon: '🖱️', title: 'Intuitive Data Entry', description: 'Simplified forms with dropdowns and visual aids to reduce errors and effort.'},
              { icon: '🔔', title: 'Real-Time Alerting', description: 'Clear visual cues (e.g., color-coding) and notifications for new or changed restrictions.'},
              { icon: '🌐', title: 'Geospatial Map View', description: 'An interactive map showing all TSR locations to enhance situational awareness.'},
-             { icon: '📈', title: 'Analytics & History', description: 'Tools to analyze trends, review historical data, and generate compliance reports.'},
+             { icon: '📈', text: 'Analytics & History', description: 'Tools to analyze trends, review historical data, and generate compliance reports.'},
              { icon: '📱', title: 'Mobile Accessibility', description: 'Responsive design with potential for offline functionality for field staff.'}
         ]
     };
@@ -350,9 +348,18 @@
     }
 
     function highlightRole(selectedRole) {
-        document.querySelectorAll('.role').forEach(roleEl => roleEl.classList.remove('active'));
+        const activeClasses = ['bg-white', 'text-stone-900', 'font-semibold', 'shadow'];
+        const inactiveClasses = ['text-stone-500', 'hover:text-stone-800'];
+
+        document.querySelectorAll('.role').forEach(roleEl => {
+            roleEl.classList.remove(...activeClasses);
+            roleEl.classList.add(...inactiveClasses);
+        });
+
         if (selectedRole) {
-            document.querySelector(`.role[data-role='${selectedRole.id}']`).classList.add('active');
+            const selectedEl = document.querySelector(`.role[data-role='${selectedRole.id}']`);
+            selectedEl.classList.remove(...inactiveClasses);
+            selectedEl.classList.add(...activeClasses);
         }
 
         const roleDetailDisplay = document.getElementById('role-detail-display');
@@ -399,7 +406,7 @@
         const rolesContainer = document.getElementById('roles-container');
         db.roles.forEach(role => {
             const roleEl = document.createElement('button');
-            roleEl.className = 'role py-3 px-5 rounded-full border-2 border-stone-300 bg-white hover:text-stone-800 transition-colors text-sm sm:text-base';
+            roleEl.className = 'role py-3 px-5 rounded-full transition-colors duration-300 text-sm sm:text-base text-stone-500 hover:text-stone-800';
             roleEl.textContent = role.name;
             roleEl.dataset.role = role.id;
             roleEl.onclick = () => highlightRole(role);
