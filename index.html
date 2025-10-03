@@ -14,17 +14,23 @@
         header h1 { line-height: 1.4em !important; }
         .nav-button { transition: all 0.3s ease; }
         .nav-button.active { background-color: #44403C; color: #FFFFFF; }
-        .nav-button:not(.active):hover { background-color: #D6D3D1; }
+        .nav-button:not(.active):hover { color: #292524; }
         .nav-button-mobile.active { background-color: #44403C; color: #FFFFFF; }
-        .nav-button-mobile:not(.active):hover { background-color: #E7E5E4; }
+        .nav-button-mobile:not(.active):hover { color: #292524; }
         .content-section { display: none; }
         .content-section.active { display: block; }
         .card { background-color: #FFFFFF; border: 1px solid #E7E5E4; transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
         .chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 400px; max-height: 50vh; }
         .process-step { border-left: 3px solid #D6D3D1; }
-        .process-step.active { border-left-color: #44403C; }
-        .role.active { background-color: #D6D3D1; border-color: #44403C; }
+        .process-step.active {
+            border-left-color: #FA8E42;
+            background-color: #FFF8F3;
+        }
+        .role.active {
+            background-color: #FFF8F3;
+            border-color: #FA8E42;
+        }
     </style>
 </head>
 <body class="text-stone-800">
@@ -71,8 +77,8 @@
 
                 <div class="card py-12 px-10 rounded-lg">
                     <div class="bg-stone-200 p-1 rounded-full flex flex-col sm:flex-row max-w-md mx-auto mb-6">
-                        <button id="btn-planned" class="tab-button py-2 px-4 w-full sm:w-1/2 text-base md:text-lg transition-colors duration-300 rounded-t-full sm:rounded-full" onclick="showTSRType('planned')">Planned TSRs</button>
-                        <button id="btn-emergency" class="tab-button py-2 px-4 w-full sm:w-1/2 text-base md:text-lg transition-colors duration-300 rounded-b-full sm:rounded-full" onclick="showTSRType('emergency')">Emergency TSRs (ESRs)</button>
+                        <button id="btn-planned" class="tab-button py-2 px-4 w-full sm:w/1-2 text-base md:text-lg transition-colors duration-300 rounded-t-full sm:rounded-full" onclick="showTSRType('planned')">Planned TSRs</button>
+                        <button id="btn-emergency" class="tab-button py-2 px-4 w-full sm:w/1-2 text-base md:text-lg transition-colors duration-300 rounded-b-full sm:rounded-full" onclick="showTSRType('emergency')">Emergency TSRs (ESRs)</button>
                     </div>
                     <div id="content-planned" class="tsr-type-content">
                         <h3 class="text-lg md:text-xl font-semibold mb-2 flex items-center"><span class="text-2xl mr-3">🗓️</span>Planned Temporary Speed Restrictions</h3>
@@ -237,6 +243,8 @@
         ]
     };
 
+    let regionalStandardsChart = null; // To hold the chart instance
+
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -244,11 +252,63 @@
         mobileMenu.classList.toggle('hidden');
     });
 
+    // Function to create the chart
+    function createChart() {
+        if (regionalStandardsChart) {
+            return; // Don't re-create if it already exists
+        }
+        const ctx = document.getElementById('regionalStandardsChart').getContext('2d');
+        regionalStandardsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6'],
+                datasets: [
+                {
+                    label: 'Max Freight Speed (mph)',
+                    data: [10, 25, 40, 60, 80, 110],
+                    backgroundColor: 'rgba(68, 64, 60, 0.7)',
+                    borderColor: 'rgba(68, 64, 60, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Max Passenger Speed (mph)',
+                    data: [15, 30, 60, 80, 90, 110],
+                    backgroundColor: 'rgba(250, 142, 66, 0.7)',
+                    borderColor: 'rgba(250, 142, 66, 1)',
+                    borderWidth: 1
+                }
+            ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, title: { display: true, text: 'Speed (mph)' } },
+                    y: { title: { display: true, text: 'FRA Track Class' } }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: { 
+                        mode: 'y',
+                        intersect: true
+                    },
+                    title: { display: true, text: 'FRA Maximum Allowable Operating Speeds' }
+                }
+            }
+        });
+    }
+
     function showSection(sectionId, isMobile = false) {
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.remove('active');
         });
         document.getElementById(sectionId).classList.add('active');
+        
+        // Create chart only when its section is visible
+        if (sectionId === 'how-who') {
+            createChart();
+        }
 
         // Update desktop nav
         document.querySelectorAll('.nav-button').forEach(button => {
@@ -277,7 +337,7 @@
 
         const buttons = document.querySelectorAll('.tab-button');
         const activeClasses = ['bg-white', 'text-stone-900', 'font-semibold', 'shadow'];
-        const inactiveClasses = ['text-stone-500', 'hover:bg-stone-300'];
+        const inactiveClasses = ['text-stone-500', 'hover:text-stone-800'];
 
         buttons.forEach(button => {
             button.classList.remove(...activeClasses);
@@ -308,9 +368,9 @@
         }
 
         document.querySelectorAll('.process-step').forEach(stepEl => {
-            stepEl.classList.remove('active', 'bg-stone-100');
+            stepEl.classList.remove('active');
             if (selectedRole && stepEl.getAttribute('data-role') === selectedRole.id) {
-                stepEl.classList.add('active', 'bg-stone-100');
+                stepEl.classList.add('active');
             }
         });
     }
@@ -339,7 +399,7 @@
         const rolesContainer = document.getElementById('roles-container');
         db.roles.forEach(role => {
             const roleEl = document.createElement('button');
-            roleEl.className = 'role py-3 px-5 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-100 transition-colors text-sm sm:text-base';
+            roleEl.className = 'role py-3 px-5 rounded-full border-2 border-stone-300 bg-white hover:text-stone-800 transition-colors text-sm sm:text-base';
             roleEl.textContent = role.name;
             roleEl.dataset.role = role.id;
             roleEl.onclick = () => highlightRole(role);
@@ -361,11 +421,11 @@
         const timelineContainer = document.getElementById('timeline-container');
         db.timeline.forEach((item, index) => {
             const timelineEl = document.createElement('div');
-            timelineEl.className = 'relative pl-8 pb-8 group';
+            timelineEl.className = 'relative pl-8 pb-4 group';
             timelineEl.innerHTML = `
                 <div class="absolute top-1 left-0 w-4 h-4 rounded-full ${item.color} border-4 border-white z-10"></div>
                 ${index < db.timeline.length - 1 ? '<div class="absolute top-1 left-2 h-full w-0.5 bg-stone-200"></div>' : ''}
-                <div class="p-4 rounded-lg bg-stone-50 border border-stone-200 ml-4 group-hover:bg-white group-hover:shadow-md transition-all">
+                <div class="py-4 px-8 rounded-lg bg-stone-50 border border-stone-200 ml-4 group-hover:bg-white group-hover:shadow-md transition-all">
                     <h4 class="font-bold text-lg flex items-center"><span class="text-2xl mr-2">${item.icon}</span>${item.era}</h4>
                     <p class="text-stone-600 leading-relaxed">${item.details}</p>
                 </div>
@@ -396,44 +456,6 @@
                 <p class="text-sm text-stone-600 leading-relaxed">${item.description}</p>
             `;
             uiUxList.appendChild(card);
-        });
-
-        const ctx = document.getElementById('regionalStandardsChart').getContext('2d');
-        const regionalStandardsChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6'],
-                datasets: [
-                {
-                    label: 'Max Freight Speed (mph)',
-                    data: [10, 25, 40, 60, 80, 110],
-                    backgroundColor: 'rgba(68, 64, 60, 0.7)',
-                    borderColor: 'rgba(68, 64, 60, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Max Passenger Speed (mph)',
-                    data: [15, 30, 60, 80, 90, 110],
-                    backgroundColor: 'rgba(168, 162, 158, 0.7)',
-                    borderColor: 'rgba(168, 162, 158, 1)',
-                    borderWidth: 1
-                }
-            ]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { beginAtZero: true, title: { display: true, text: 'Speed (mph)' } },
-                    y: { title: { display: true, text: 'FRA Track Class' } }
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { mode: 'index', intersect: false },
-                    title: { display: true, text: 'FRA Maximum Allowable Operating Speeds' }
-                }
-            }
         });
     });
 </script>
