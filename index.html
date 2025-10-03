@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F5F5F4; }
+        header h1 { line-height: 1.4em !important; }
         .nav-button { transition: all 0.3s ease; }
         .nav-button.active { background-color: #44403C; color: #FFFFFF; }
         .nav-button:not(.active):hover { background-color: #D6D3D1; }
@@ -63,12 +64,12 @@
         <main>
             <!-- Section 1: What & Why -->
             <section id="what-why" class="content-section active space-y-6 md:space-y-8">
-                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="text-center py-12 px-10 bg-white rounded-lg shadow-md">
                     <h2 class="text-xl md:text-2xl font-bold text-stone-900 mb-2">The Fundamentals of TSRs</h2>
-                    <p class="text-stone-700 max-w-3xl mx-auto text-left leading-relaxed">This section breaks down the core concepts of Temporary Speed Restrictions (TSRs), defining what they are, how they differ from permanent restrictions, and how they are categorized. The goal is a foundational understanding of why TSRs are a critical safety mechanism in railway operations. Use the buttons below to explore the two main types.</p>
+                    <p class="text-stone-700 text-left leading-relaxed">This section breaks down the core concepts of Temporary Speed Restrictions (TSRs), defining what they are, how they differ from permanent restrictions, and how they are categorized. The goal is a foundational understanding of why TSRs are a critical safety mechanism in railway operations. Use the buttons below to explore the two main types.</p>
                 </div>
 
-                <div class="card p-6 rounded-lg">
+                <div class="card py-12 px-10 rounded-lg">
                     <div class="bg-stone-200 p-1 rounded-full flex flex-col sm:flex-row max-w-md mx-auto mb-6">
                         <button id="btn-planned" class="tab-button py-2 px-4 w-full sm:w-1/2 text-base md:text-lg transition-colors duration-300 rounded-t-full sm:rounded-full" onclick="showTSRType('planned')">Planned TSRs</button>
                         <button id="btn-emergency" class="tab-button py-2 px-4 w-full sm:w-1/2 text-base md:text-lg transition-colors duration-300 rounded-b-full sm:rounded-full" onclick="showTSRType('emergency')">Emergency TSRs (ESRs)</button>
@@ -95,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="card p-6 rounded-lg">
+                <div class="card py-12 px-10 rounded-lg">
                      <h3 class="text-lg md:text-xl font-semibold mb-4 text-center">Primary Causes for TSR Imposition</h3>
                      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="causes-grid">
                      </div>
@@ -104,12 +105,12 @@
 
             <!-- Section 2: How & Who -->
             <section id="how-who" class="content-section space-y-6 md:space-y-8">
-                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="text-center py-12 px-10 bg-white rounded-lg shadow-md">
                     <h2 class="text-xl md:text-2xl font-bold text-stone-900 mb-2">Global Management & Stakeholders</h2>
-                    <p class="text-stone-700 max-w-3xl mx-auto text-left leading-relaxed">This section explores how TSRs are managed in different regions and identifies the key personnel involved. It highlights regulatory differences and the complex web of responsibilities. Compare regional speed standards with the chart and explore the interactive workflow to understand each role.</p>
+                    <p class="text-stone-700 text-left leading-relaxed">This section explores how TSRs are managed in different regions and identifies the key personnel involved. It highlights regulatory differences and the complex web of responsibilities. Compare regional speed standards with the chart and explore the interactive workflow to understand each role.</p>
                 </div>
                 
-                <div class="card p-6 rounded-lg">
+                <div class="card py-12 px-10 rounded-lg">
                     <h3 class="text-lg md:text-xl font-semibold text-center mb-4">Comparing Regional Speed Standards (FRA Track Classes)</h3>
                     <div class="chart-container">
                         <canvas id="regionalStandardsChart"></canvas>
@@ -117,7 +118,7 @@
                     <p class="text-left text-sm text-stone-500 mt-4 max-w-3xl mx-auto leading-relaxed">This chart displays the maximum allowable speeds for different classes of track as defined by the US Federal Railroad Administration (FRA). Hover over the bars to see specific speeds for passenger and freight trains. Note the significant variations, which illustrate the need for configurable software solutions.</p>
                 </div>
 
-                <div class="card p-6 rounded-lg">
+                <div class="card py-12 px-10 rounded-lg">
                     <h3 class="text-lg md:text-xl font-semibold text-center mb-4">TSR Management Workflow & Key Roles</h3>
                     <p class="text-left text-stone-600 mb-6 max-w-3xl mx-auto leading-relaxed">Click a role to read its description and see its key responsibilities highlighted in the process flow below. This demonstrates the collaborative effort required from imposition to removal.</p>
                     <div id="roles-container" class="flex flex-wrap justify-center gap-2 mb-6">
@@ -140,12 +141,12 @@
 
             <!-- Section 3: Evolution -->
             <section id="communication" class="content-section space-y-6 md:space-y-8">
-                 <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                 <div class="text-center py-12 px-10 bg-white rounded-lg shadow-md">
                     <h2 class="text-xl md:text-2xl font-bold text-stone-900 mb-2">The Evolution of TSR Communication</h2>
-                    <p class="text-stone-700 max-w-3xl mx-auto text-left leading-relaxed">Effective communication is the bedrock of TSR safety. This section illustrates the shift from traditional, manual methods to modern digital systems. Explore the timeline to understand the pros and cons of each era and why real-time data exchange is critical for today's railways.</p>
+                    <p class="text-stone-700 text-left leading-relaxed">Effective communication is the bedrock of TSR safety. This section illustrates the shift from traditional, manual methods to modern digital systems. Explore the timeline to understand the pros and cons of each era and why real-time data exchange is critical for today's railways.</p>
                 </div>
 
-                <div class="card p-6 rounded-lg">
+                <div class="card py-12 px-10 rounded-lg">
                     <h3 class="text-lg md:text-xl font-semibold text-center mb-6">From Physical Signs to Digital Feeds</h3>
                     <div id="timeline-container" class="relative">
                         <!-- Timeline items will be dynamically inserted here -->
@@ -155,20 +156,20 @@
 
             <!-- Section 4: Insights & Strategy -->
             <section id="solution" class="content-section space-y-6 md:space-y-8">
-                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                <div class="text-center py-12 px-10 bg-white rounded-lg shadow-md">
                     <h2 class="text-xl md:text-2xl font-bold text-stone-900 mb-2">Designing the Ideal TSR Software Features</h2>
-                    <p class="text-stone-700 max-w-3xl mx-auto text-left leading-relaxed">Synthesizing the findings, this final section outlines the essential requirements for developing a modern, effective TSR management software. It covers the necessary data elements, key system integrations, and primary user interface considerations for a tool that enhances safety and operational efficiency.</p>
+                    <p class="text-stone-700 text-left leading-relaxed">Synthesizing the findings, this final section outlines the essential requirements for developing a modern, effective TSR management software. It covers the necessary data elements, key system integrations, and primary user interface considerations for a tool that enhances safety and operational efficiency.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card p-6 rounded-lg">
+                    <div class="card py-12 px-10 rounded-lg">
                         <h3 class="text-lg md:text-xl font-semibold mb-4 flex items-center"><span class="text-2xl mr-3">🗃️</span>Essential Data Elements</h3>
                         <p class="text-stone-600 mb-4 leading-relaxed">A robust TSR system must capture a comprehensive dataset for each restriction to ensure accuracy, traceability, and analytics.</p>
                         <ul id="data-elements-list" class="list-disc list-inside space-y-2 text-stone-700">
                            <!-- Data elements will be dynamically inserted here -->
                         </ul>
                     </div>
-                    <div class="card p-6 rounded-lg">
+                    <div class="card py-12 px-10 rounded-lg">
                         <h3 class="text-lg md:text-xl font-semibold mb-4 flex items-center"><span class="text-2xl mr-3">🔗</span>Key System Integrations</h3>
                         <p class="text-stone-600 mb-4 leading-relaxed">To maximize safety and efficiency, TSR functionality must connect seamlessly with the broader railway digital ecosystem.</p>
                         <ul id="integrations-list" class="list-disc list-inside space-y-2 text-stone-700">
@@ -176,7 +177,7 @@
                         </ul>
                     </div>
                 </div>
-                 <div class="card p-6 rounded-lg">
+                 <div class="card py-12 px-10 rounded-lg">
                         <h3 class="text-lg md:text-xl font-semibold mb-4 text-center"><span class="text-2xl mr-3">🖥️</span>Key UI/UX Considerations</h3>
                         <div id="ui-ux-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <!-- UI/UX items will be dynamically inserted here -->
@@ -439,3 +440,4 @@
 
 </body>
 </html>
+
