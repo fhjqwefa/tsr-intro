@@ -1,0 +1,14 @@
+body { font-family: 'Inter', sans-serif; background-color: #F5F5F4; }
+.nav-button { transition: all 0.3s ease; }
+.nav-button.active { background-color: #44403C; color: #FFFFFF; }
+.nav-button:not(.active):hover { background-color: #D6D3D1; }
+.nav-button-mobile.active { background-color: #44403C; color: #FFFFFF; }
+.nav-button-mobile:not(.active):hover { background-color: #E7E5E4; }
+.content-section { display: none; }
+.content-section.active { display: block; }
+.card { background-color: #FFFFFF; border: 1px solid #E7E5E4; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 400px; max-height: 50vh; }
+.process-step { border-left: 3px solid #D6D3D1; }
+.process-step.active { border-left-color: #44403C; }
+.role.active { background-color: #D6D3D1; border-color: #44403C; }
